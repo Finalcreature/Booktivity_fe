@@ -16,11 +16,15 @@ export default function BookContextProvider({ children }) {
   const [isbn, setIsbn] = useState("");
 
   const getResults = async () => {
-    const res = await axios.get("http://localhost:8080/books", {
-      title: search,
-    });
-    console.log();
-    setResult(res.data.data);
+    const token = JSON.parse(localStorage.getItem("token"));
+    const headersConfig = { Authorization: `Bearer ${token}` } ;
+
+    const res = await axios.get(
+      "http://localhost:8080/books",
+      {headers: headersConfig, params: {title: search}},
+    );
+    console.log(res)
+    setResult(res.data);
   };
 
   const getResultsAdvance = async () => {
