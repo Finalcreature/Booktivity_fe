@@ -23,9 +23,9 @@ function Search() {
     isbn,
   } = useContext(BookContext);
 
-  useEffect(() => {
-    getResults();
-  }, [search]);
+  // useEffect(() => {
+  //   getResults();
+  // }, [search]);
 
   const handleSubmitAdvancedSearch = (event) => {
     event.preventDefault();

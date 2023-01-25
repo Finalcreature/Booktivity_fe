@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 
 function NavBar() {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { setSearch, search } = useContext(BookContext);
+  const { setSearch, search, getResults } = useContext(BookContext);
 
   const navigate = useNavigate();
 
@@ -27,14 +27,14 @@ function NavBar() {
     window.location.reload();
   };
 
-  const handleOnChangeSearchTerms = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const handleSubmitSearch = (event) => {
+  // const handleOnChangeSearchTerms = (event) => {
+  // };
+  
+  const handleSubmitSearch = async (event) => {
     event.preventDefault();
+    setSearch(event.target.value);
+    await getResults();
     navigate("/search");
-    setSearch("");
   };
 
   return (
@@ -48,10 +48,14 @@ function NavBar() {
                   placeholder="Search by title"
                   className="me-2 search-field"
                   aria-label="Search"
-                  onChange={handleOnChangeSearchTerms}
-                  value={search}
+                  defaultValue={search}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
+                <Button type="submit">
+                  Search
+              </Button>
               </Form>
+              
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
         
