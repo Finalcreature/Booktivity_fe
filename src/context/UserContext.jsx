@@ -20,7 +20,7 @@ export default function UserContextProvider({ children }) {
     repassword: "",
   });
   const { username, country, age, email, password, repassword, gender } = signupInfo;
-  //   const { email, password } = loginInfo;
+
 
   const [currentUser, setCurrentUser] = useState({
     userId: "",
