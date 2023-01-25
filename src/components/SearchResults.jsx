@@ -7,8 +7,8 @@ function SearchResult({ search }) {
       <div className="books-card-container">
         {search.map((book) => (
           <BookCard
-            id={book.id}
-            key={book.id}
+            id={book._id}
+            key={book._id}
             picture={book.picture}
             title={book.title}
             author={book.author}
