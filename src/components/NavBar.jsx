@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-
 function NavBar() {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const { setSearch, search, getResults } = useContext(BookContext);
@@ -43,6 +42,7 @@ function NavBar() {
         <Container className="nav-bar-container">
           <Navbar.Brand href="#home">Booktivity</Navbar.Brand>
           <Form className="search-container" onSubmit={handleSubmitSearch}>
+
                 <Form.Control
                   type="search"
                   placeholder="Search by title"
@@ -55,12 +55,10 @@ function NavBar() {
                   Search
               </Button>
               </Form>
-              
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-        
             <Nav className="me-auto">
-              <Nav.Link className="nav-bar-link" href="/home">
+              <Nav.Link className="nav-bar-link" href="/">
                 Home
               </Nav.Link>
               <Nav.Link className="nav-bar-link" href="/myBooks">
@@ -72,8 +70,6 @@ function NavBar() {
               <Nav.Link className="nav-bar-link" href="/search">
                 Advanced search
               </Nav.Link>
-
-              
 
               {isLoggedin && (
                 <Nav.Link
