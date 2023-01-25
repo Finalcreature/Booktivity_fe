@@ -1,64 +1,78 @@
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import Select from "react-select";
-import axios from "axios";
-import { toast } from "react-toastify";
+// import axios from "axios";
+// import { toast } from "react-toastify";
 import countryList from "react-select-country-list";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 function SignUp() {
+  const { handleSignup, signupInfo, setSignupInfo } = useContext(UserContext);
+  // const [origin, setOrigin] = useState("")
   const options = useMemo(() => countryList().getData(), []);
-  const [userInfo, setUserInfo] = useState({
-    userName: "",
-    country: "",
-    age: "",
-    email: "",
-    password: "",
-    repassword: "",
-  });
+  //   const [signupInfo, setSignupInfo] = useState({
+  //     username: "",
+  //     country: "",
+  //     age: "",
+  //     email: "",
+  //     password: "",
+  //     repassword: "",
+  //   });
 
-  const { userName, country, age, email, password, repassword } = userInfo;
+  // const handleCountryChange = (e) => {setOrigin(e.target.value)}
+
+  const { username, country, age, email, password, repassword } = signupInfo;
 
   const handleChange = (e) => {
-    setUserInfo({ ...userInfo, [e.target.id]: e.target.value });
+    setSignupInfo({ ...signupInfo, [e.target.id]: e.target.value });
   };
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    try {
-      const signUser = await axios.post("/api/signup", {
-        userName,
-        country,
-        age,
-        email,
-        password,
-      });
-
-      if (signUser.data.success === true) {
-        setUserInfo({
-          userName: "",
-          country: "",
-          age: "",
-          email: "",
-          password: "",
-          repassword: "",
-        });
-        toast.success("Sign up successfull, please log in.");
-      }
-    } catch (err) {
-      console.log(err.response.data.error);
-      toast.error(err.response.data.error);
-    }
+  const handleCountry = (value) => {
+    setSignupInfo({ ...signupInfo, country: value.label });
   };
+
+  useEffect(() => {
+    console.log(signupInfo);
+  }, [signupInfo]);
+
+  //   const handleSignup = async (e) => {
+  //     e.preventDefault();
+  //     try {
+  //       const signUser = await axios.post("/api/signup", {
+  //         userName,
+  //         country,
+  //         age,
+  //         email,
+  //         password,
+  //       });
+
+  //       if (signUser.data.success === true) {
+  //         setUserInfo({
+  //           userName: "",
+  //           country: "",
+  //           age: "",
+  //           email: "",
+  //           password: "",
+  //           repassword: "",
+  //         });
+  //         toast.success("Sign up successfull, please log in.");
+  //       }
+  //     } catch (err) {
+  //       console.log(err.response.data.error);
+  //       toast.error(err.response.data.error);
+  //     }
+  //   };
 
   return (
     <div className="container signup-container mt-5">
       <Form onSubmit={handleSignup}>
         <FloatingLabel
           onChange={handleChange}
-          value={userName}
-          controlId="userName"
+          value={username}
+          controlId="username"
           label="User Name"
           className="mb-3"
         >
@@ -84,13 +98,13 @@ function SignUp() {
           <Form.Control type="number" placeholder="age" />
         </FloatingLabel>
 
-        <FloatingLabel
-          controlId="country"
-          value={country}
-          onChange={handleChange}
-          className="mb-3"
-        >
-          <Select options={options} placeholder="Country of origin" />
+        <FloatingLabel controlId="country" className="mb-3">
+          <Select
+            options={options}
+            value={country}
+            placeholder="Country of Origin"
+            onChange={handleCountry}
+          />
         </FloatingLabel>
 
         <FloatingLabel
