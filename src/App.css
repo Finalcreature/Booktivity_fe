@@ -10,4 +10,14 @@ body {
   padding: 0;
 }
 
+.nav-bar-link {
+  margin-left: 13px;
+}
 
+.search-page-container {
+  margin: 20px;
+}
+
+.search-container {
+  width: 190px;
+}

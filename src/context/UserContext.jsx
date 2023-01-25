@@ -15,11 +15,12 @@ export default function UserContextProvider({ children }) {
     country: "",
     age: "",
     email: "",
+    gender: "",
     password: "",
     repassword: "",
   });
-  const { username, country, age, email, password, repassword } = signupInfo;
-  //   const { email, password } = loginInfo;
+  const { username, country, age, email, password, repassword, gender } = signupInfo;
+
 
   const [currentUser, setCurrentUser] = useState({
     userId: "",
@@ -47,12 +48,13 @@ export default function UserContextProvider({ children }) {
         username,
         country,
         age,
+        gender,
         email,
         password,
         repassword,
       });
       console.log(signUser);
-      if (signUser.data.success === true) {
+      if (signUser.status === 200) {
         setSignupInfo({
           username: "",
           country: "",
@@ -64,8 +66,8 @@ export default function UserContextProvider({ children }) {
         toast.success("Sign up successfull, please log in.");
       }
     } catch (err) {
-      console.log(err.response.data);
-      toast.error(err.response.data);
+      console.log(err);
+      toast.error(err);
     }
   };
 
@@ -73,17 +75,18 @@ export default function UserContextProvider({ children }) {
     e.preventDefault();
     // setLoading(true);
     try {
-      const { data } = await axios.post(
+      const data  = await axios.post(
         "http://localhost:8080/user/login",
         loginInfo
       );
 
-      if (data.success === true) {
+      if (data) {
         setLoginInfo({
           email: "",
           password: "",
         });
-       setCurrentUser(data.data.User)
+        console.log(data);
+       setCurrentUser(data.data.user)
         // setUserRole(data.userRole)
         // setLoggedIn(true);
         // setLoading(false);
@@ -95,8 +98,8 @@ export default function UserContextProvider({ children }) {
         }
       }
     } catch (err) {
-      console.log(err.response.data.error);
-      toast.error(err.response.data.error);
+      console.log(err);
+      toast.error(err.response.data);
     }
   };
 

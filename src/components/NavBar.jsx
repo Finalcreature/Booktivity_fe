@@ -5,12 +5,13 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { BookContext } from "../context/BookContext";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 
 function NavBar() {
-  const { currentUser } = useContext(UserContext);
-  const { setSearch } = useContext(BookContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { setSearch, search } = useContext(BookContext);
 
   const navigate = useNavigate();
 
@@ -20,6 +21,7 @@ function NavBar() {
 
   const handleLogOut = () => {
     setLogOut(true);
+    setCurrentUser("");
     localStorage.clear();
     navigate("/");
     window.location.reload();
@@ -38,22 +40,9 @@ function NavBar() {
   return (
     <div>
       <Navbar bg="light" expand="lg">
-        <Container>
+        <Container className="nav-bar-container">
           <Navbar.Brand href="#home">Booktivity</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link className="nav-bar-link" href="#home">
-                Home
-              </Nav.Link>
-              <Nav.Link className="nav-bar-link" href="#link">
-                My books
-              </Nav.Link>
-              <Nav.Link className="nav-bar-link" href="#link">
-                Leaderboard
-              </Nav.Link>
-
-              <Form className="search-container" onSubmit={handleSubmitSearch}>
+          <Form className="search-container" onSubmit={handleSubmitSearch}>
                 <Form.Control
                   type="search"
                   placeholder="Search by title"
@@ -63,6 +52,24 @@ function NavBar() {
                   value={search}
                 />
               </Form>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+        
+            <Nav className="me-auto">
+              <Nav.Link className="nav-bar-link" href="/home">
+                Home
+              </Nav.Link>
+              <Nav.Link className="nav-bar-link" href="/myBooks">
+                My books
+              </Nav.Link>
+              <Nav.Link className="nav-bar-link" href="/leaderboard">
+                Leaderboard
+              </Nav.Link>
+              <Nav.Link className="nav-bar-link" href="/search">
+                Advanced search
+              </Nav.Link>
+
+              
 
               {isLoggedin && (
                 <Nav.Link

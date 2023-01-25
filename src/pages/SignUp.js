@@ -76,7 +76,7 @@ function SignUp() {
           label="User Name"
           className="mb-3"
         >
-          <Form.Control type="text" placeholder="username" />
+          <Form.Control required type="text" placeholder="username" />
         </FloatingLabel>
 
         <FloatingLabel
@@ -86,7 +86,7 @@ function SignUp() {
           label="Email address"
           className="mb-3"
         >
-          <Form.Control type="email" placeholder="name@example.com" />
+          <Form.Control required type="email" placeholder="name@example.com" />
         </FloatingLabel>
         <FloatingLabel
           onChange={handleChange}
@@ -98,6 +98,17 @@ function SignUp() {
           <Form.Control type="number" placeholder="age" />
         </FloatingLabel>
 
+          <Form.Select
+            onChange={handleChange}
+            className="mb-3"
+            aria-label="Default select example"
+            id="gender"
+          >
+            <option value="">Select Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+          </Form.Select>
+
         <FloatingLabel controlId="country" className="mb-3">
           <Select
             options={options}
@@ -107,6 +118,8 @@ function SignUp() {
           />
         </FloatingLabel>
 
+      
+
         <FloatingLabel
           onChange={handleChange}
           value={password}
@@ -114,7 +127,7 @@ function SignUp() {
           label="Password"
           className="mb-3"
         >
-          <Form.Control type="password" placeholder="password" />
+          <Form.Control required type="password" placeholder="password" />
         </FloatingLabel>
         <FloatingLabel
           onChange={handleChange}

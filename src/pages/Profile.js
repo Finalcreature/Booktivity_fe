@@ -6,7 +6,7 @@ function UserProfile() {
   const { currentUser } = useContext(UserContext);
 
   return (
-    profile && (
+    currentUser && (
       <div className="profile-page-container">
         <div className="profile-title-container">
           <h1 className="profile-title">Booktivity Profile</h1>

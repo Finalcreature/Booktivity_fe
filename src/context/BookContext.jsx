@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 export const BookContext = createContext();
 
 export default function BookContextProvider({ children }) {
-
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
 
@@ -16,13 +15,11 @@ export default function BookContextProvider({ children }) {
   const [rating, setRating] = useState("");
   const [isbn, setIsbn] = useState("");
 
-
   const getResults = async () => {
     const res = await axios.get("http://localhost:8080/books", {
-      params: {
-        searchTerms: search,
-      },
+      title: search,
     });
+    console.log();
     setResult(res.data.data);
   };
 
@@ -34,19 +31,16 @@ export default function BookContextProvider({ children }) {
         year,
         rating,
         isbn,
-      
       },
     });
     setResult(res.data.data);
   };
 
-  
   const handleSubmitAdvancedSearch = (event) => {
     event.preventDefault();
     getResultsAdvance();
   };
 
-   
   return (
     <BookContext.Provider
       value={{
@@ -66,7 +60,7 @@ export default function BookContextProvider({ children }) {
         author,
         year,
         rating,
-        isbn
+        isbn,
       }}
     >
       {children}
