@@ -42,7 +42,6 @@ function NavBar() {
         <Container className="nav-bar-container">
           <Navbar.Brand href="#home">Booktivity</Navbar.Brand>
           <Form className="search-container" onSubmit={handleSubmitSearch}>
-
                 <Form.Control
                   type="search"
                   placeholder="Search by title"
