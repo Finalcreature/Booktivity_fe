@@ -24,10 +24,10 @@ function LogIn() {
 
   const { email, password } = loginInfo;
 
-  useEffect(() => {
-    console.log(loginInfo);
-    toast("Wow so easy!");
-  }, [loginInfo]);
+  // useEffect(() => {
+  //   console.log(loginInfo);
+  //   toast("Wow so easy!");
+  // }, [loginInfo]);
 
   //   const handleLogin = async (e) => {
   //     e.preventDefault();

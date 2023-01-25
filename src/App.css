@@ -11,5 +11,13 @@ body {
 }
 
 .nav-bar-link {
-  margin-left: 12px;
+  margin-left: 13px;
+}
+
+.search-page-container {
+  margin: 20px;
+}
+
+.search-container {
+  width: 190px;
 }

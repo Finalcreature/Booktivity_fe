@@ -18,11 +18,13 @@ export default function BookContextProvider({ children }) {
 
 
   const getResults = async () => {
+    console.log(search);
     const res = await axios.get("http://localhost:8080/books", {
       params: {
         searchTerms: search,
       },
     });
+    console.log()
     setResult(res.data.data);
   };
 
