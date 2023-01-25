@@ -1,17 +1,21 @@
 
+import BookCard from "./BookCard";
+
 function SearchResult({ search }) {
   return (
     <div className="results-component">
-      <div className="book-card-container">
-        {search.map((pet) => (
-        //   <PetCard
-        //     id={pet.id}
-        //     key={pet.id}
-        //     picture={pet.picture}
-        //     name={pet.name}
-        //     type={pet.type}
-        //     status={pet.status}
-        //   />
+      <div className="books-card-container">
+        {search.map((book) => (
+          <BookCard
+            id={book.id}
+            key={book.id}
+            picture={book.picture}
+            title={book.title}
+            author={book.author}
+            year={book.year}
+            rating={book.rating}
+            isbn={book.isbn}
+          />
         ))}
       </div>
     </div>

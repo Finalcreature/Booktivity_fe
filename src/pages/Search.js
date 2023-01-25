@@ -1,5 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { BookContext } from "../context/BookContext";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import SearchResult from "../components/SearchResults";
 
 function Search() {
 
@@ -7,6 +10,7 @@ function Search() {
     search,
     getResults,
     getResultsAdvance,
+    result,
     setTitle,
     setAuthor,
     setYear,

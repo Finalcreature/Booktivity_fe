@@ -1,12 +1,14 @@
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useState } from "react";
+import { useEffect } from "react";
 // import axios from "axios";
 // import { toast } from "react-toastify";
 // import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function LogIn() {
   const { handleLogin, loginInfo, setLoginInfo } = useContext(UserContext);
@@ -21,6 +23,11 @@ function LogIn() {
   };
 
   const { email, password } = loginInfo;
+
+  useEffect(() => {
+    console.log(loginInfo);
+    toast("Wow so easy!");
+  }, [loginInfo]);
 
   //   const handleLogin = async (e) => {
   //     e.preventDefault();

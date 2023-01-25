@@ -5,12 +5,13 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { BookContext } from "../context/BookContext";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
 
 function NavBar() {
   const { currentUser } = useContext(UserContext);
-  const { setSearch } = useContext(BookContext);
+  const { setSearch, search } = useContext(BookContext);
 
   const navigate = useNavigate();
 

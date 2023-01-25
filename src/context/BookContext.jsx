@@ -34,7 +34,6 @@ export default function BookContextProvider({ children }) {
         year,
         rating,
         isbn,
-      
       },
     });
     setResult(res.data.data);

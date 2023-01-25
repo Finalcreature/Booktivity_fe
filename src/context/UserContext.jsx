@@ -95,8 +95,8 @@ export default function UserContextProvider({ children }) {
         }
       }
     } catch (err) {
-      console.log(err.response.data.error);
-      toast.error(err.response.data.error);
+      console.log(err.response.data);
+      toast.error(err.response.data);
     }
   };
 
