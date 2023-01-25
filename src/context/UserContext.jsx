@@ -19,8 +19,8 @@ export default function UserContextProvider({ children }) {
     password: "",
     repassword: "",
   });
-  const { username, country, age, email, password, repassword, gender } = signupInfo;
-
+  const { username, country, age, email, password, repassword, gender } =
+    signupInfo;
 
   const [currentUser, setCurrentUser] = useState({
     userId: "",
@@ -75,7 +75,7 @@ export default function UserContextProvider({ children }) {
     e.preventDefault();
     // setLoading(true);
     try {
-      const data  = await axios.post(
+      const data = await axios.post(
         "http://localhost:8080/user/login",
         loginInfo
       );
@@ -86,15 +86,15 @@ export default function UserContextProvider({ children }) {
           password: "",
         });
         console.log(data);
-       setCurrentUser(data.data.user)
+        setCurrentUser(data.data.user);
         // setUserRole(data.userRole)
         // setLoggedIn(true);
         // setLoading(false);
         toast.success("Log in successfull.");
         // navigate("/");
-        
+
         if (typeof window !== "undefined") {
-          localStorage.setItem("token", JSON.stringify(data));
+          localStorage.setItem("token", JSON.stringify(data.data.token));
         }
       }
     } catch (err) {
