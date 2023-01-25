@@ -1,3 +1,4 @@
+import { MyBooks } from "../components/MyBooks";
 import Book from "./Book";
 
 function Home() {
@@ -5,6 +6,7 @@ function Home() {
     <>
       {/* <div>We are at home page</div>; */}
       <Book />
+      <MyBooks />
     </>
   );
 }
