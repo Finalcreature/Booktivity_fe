@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import UserProfile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Book from "./pages/Book";
+import { MyBooks } from "./components/MyBooks";
 
 function App() {
   return (
@@ -24,13 +25,20 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/" element={<LogIn />} /> */}
             <Route path="/signup" element={<SignUp />} />
             <Route
               path="/leaderboard"
               element={
                 <PrivateRoute>
                   <Leaderboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/myBooks"
+              element={
+                <PrivateRoute>
+                  <MyBooks />
                 </PrivateRoute>
               }
             />

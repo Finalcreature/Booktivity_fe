@@ -18,19 +18,21 @@ export const MyBooks = () => {
   //   setChosenList({ [e.target.id]: e.target.value });
   // };
 
-  const handleChosenList = (value) => {
-    setChosenList({ chosenList: value });
+  const handleChosenList = (e) => {
+    setChosenList(e.target.value);
   };
 
   const getWishlist = async () => {
     try {
       const data = await axios.get(
-        `http://localhost:8080/user/${currentUser.userId}/wishlist`,
+        `http://localhost:8080/user/${JSON.parse(
+          localStorage.getItem("currentUser")
+        )}/wishlist`,
         { headers: headersConfig }
       );
       if (data.status === 200) {
         console.log(data);
-        setMyBooks(data.data.wishlist);
+        setMyBooks(data);
         console.log(myBooks);
       }
       console.log(myBooks);
@@ -38,18 +40,20 @@ export const MyBooks = () => {
       console.log(err);
       toast.error(err);
     }
-  }
+  };
 
   const showMyBooks = async () => {
     if (chosenList === "currently") {
       try {
         const data = await axios.get(
-          `http://localhost:8080/user/${currentUser.userId}/currently`,
+          `http://localhost:8080/user/${JSON.parse(
+            localStorage.getItem("currentUser")
+          )}/currently`,
           { headers: headersConfig }
         );
         if (data) {
           console.log(data);
-          setMyBooks(data);
+          setMyBooks(data.data.currentBooks);
         }
       } catch (err) {
         console.log(err);
@@ -58,12 +62,14 @@ export const MyBooks = () => {
     } else if (chosenList === "finsished") {
       try {
         const data = await axios.get(
-          `http://localhost:8080/user/${currentUser.userId}/finished`,
+          `http://localhost:8080/user/${JSON.parse(
+            localStorage.getItem("currentUser")
+          )}/finished`,
           { headers: headersConfig }
         );
         if (data) {
           console.log(data);
-          setMyBooks(data);
+          setMyBooks(data.data.readBooks);
         }
       } catch (err) {
         console.log(err);
@@ -72,7 +78,9 @@ export const MyBooks = () => {
     } else if (chosenList === "wishlist") {
       try {
         const data = await axios.get(
-          `http://localhost:8080/user/${currentUser.userId}/wishlist`,
+          `http://localhost:8080/user/${JSON.parse(
+            localStorage.getItem("currentUser")
+          )}/wishlist`,
           { headers: headersConfig }
         );
         if (data.status === 200) {
@@ -87,11 +95,16 @@ export const MyBooks = () => {
     }
   };
 
-  const handleChange = () => {
-    // handleChosenList();
-      getWishlist();
+  const handleChange = (e) => {
+    handleChosenList(e);
+
+    // getWishlist();
     // showMyBooks();
   };
+
+  useEffect(() => {
+    showMyBooks();
+  }, [chosenList]);
 
   return (
     <div>
