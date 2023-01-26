@@ -10,7 +10,8 @@ function Book() {
   const location = useLocation();
   const currentId = location.search.slice(4);
 
-  const { currentUser } = useContext(UserContext);
+  // const { currentUser } = useContext(UserContext);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [thisBook, setThisBook] = useState({});
 
   const token = JSON.parse(localStorage.getItem("token"));
@@ -25,13 +26,14 @@ function Book() {
 
   useEffect(() => {
     getBookInfos(currentId);
-  });
+  }, []);
 
   const addToWishlist = async () => {
     try {
       const data = await axios.put(
-        `http://localhost:8080/user/${currentUser.userId}/wishlist`,
-        thisBook._id
+        `http://localhost:8080/user/${currentUser}/wishlist`,
+        currentId,
+        { headers: headersConfig }
       );
       if (data) {
         console.log(data);
@@ -46,7 +48,7 @@ function Book() {
   const removeFromWishlist = async () => {
     try {
       const data = await axios.delete(
-        `http://localhost:8080/user/${currentUser.userId}/wishlist`,
+        `http://localhost:8080/user/${currentUser}/wishlist`,
         thisBook._id
       );
       if (data) {
@@ -62,8 +64,9 @@ function Book() {
   const addToCurrentBooks = async () => {
     try {
       const data = await axios.put(
-        `http://localhost:8080/user/${currentUser.userId}/currently`,
-        thisBook._id
+        `http://localhost:8080/user/${currentUser}/currently`,
+        currentId,
+        { headers: headersConfig }
       );
       if (data) {
         console.log(data);
@@ -94,8 +97,9 @@ function Book() {
   const addToFinishedBooks = async () => {
     try {
       const data = await axios.put(
-        `http://localhost:8080/user/${currentUser.userId}/finished`,
-        thisBook._id
+        `http://localhost:8080/user/${currentUser}/finished`,
+        currentId,
+        { headers: headersConfig }
       );
       if (data) {
         console.log(data);
