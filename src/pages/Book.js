@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
@@ -13,10 +13,25 @@ function Book() {
   const { currentUser } = useContext(UserContext);
   const [thisBook, setThisBook] = useState({});
 
+  const token = JSON.parse(localStorage.getItem("token"));
+  const headersConfig = { Authorization: `Bearer ${token}` };
+
+  async function getBookInfos(id) {
+    const info = await axios.get(`http://localhost:8080/books/${id}`, {
+      headers: headersConfig,
+    });
+    setThisBook(info.data);
+  }
+
+  useEffect(() => {
+    getBookInfos(currentId);
+  });
+
   const addToWishlist = async () => {
     try {
       const data = await axios.put(
-        `http://localhost:8080/user/${currentUser.userId}/wishlist`, thisBook._id 
+        `http://localhost:8080/user/${currentUser.userId}/wishlist`,
+        thisBook._id
       );
       if (data) {
         console.log(data);
@@ -31,7 +46,8 @@ function Book() {
   const removeFromWishlist = async () => {
     try {
       const data = await axios.delete(
-        `http://localhost:8080/user/${currentUser.userId}/wishlist`, thisBook._id 
+        `http://localhost:8080/user/${currentUser.userId}/wishlist`,
+        thisBook._id
       );
       if (data) {
         console.log(data);
@@ -46,7 +62,8 @@ function Book() {
   const addToCurrentBooks = async () => {
     try {
       const data = await axios.put(
-        `http://localhost:8080/user/${currentUser.userId}/currently`, thisBook._id 
+        `http://localhost:8080/user/${currentUser.userId}/currently`,
+        thisBook._id
       );
       if (data) {
         console.log(data);
@@ -61,7 +78,8 @@ function Book() {
   const removeFromCurrentBooks = async () => {
     try {
       const data = await axios.delete(
-        `http://localhost:8080/user/${currentUser.userId}/currently`, thisBook._id 
+        `http://localhost:8080/user/${currentUser.userId}/currently`,
+        thisBook._id
       );
       if (data) {
         console.log(data);
@@ -76,7 +94,8 @@ function Book() {
   const addToFinishedBooks = async () => {
     try {
       const data = await axios.put(
-        `http://localhost:8080/user/${currentUser.userId}/finished`, thisBook._id 
+        `http://localhost:8080/user/${currentUser.userId}/finished`,
+        thisBook._id
       );
       if (data) {
         console.log(data);
@@ -91,7 +110,8 @@ function Book() {
   const removeFromFinishedBooks = async () => {
     try {
       const data = await axios.delete(
-        `http://localhost:8080/user/${currentUser.userId}/finished`, thisBook._id 
+        `http://localhost:8080/user/${currentUser.userId}/finished`,
+        thisBook._id
       );
       if (data) {
         console.log(data);
@@ -103,16 +123,20 @@ function Book() {
     }
   };
 
+  if (!thisBook) return;
+
+  const { author, image, isbn, publisher, title, year, _id } = thisBook;
+
   return (
     <div className="container mt-3">
       <div className="book-header">
-        <h1>Book Title</h1>
-        <h2>Author</h2>
-        <h3>Year</h3>
-        <h3>Rating</h3>
+        <h1>{title}</h1>
+        <h2>{author}</h2>
+        <h3>{year}</h3>
+        {/* <h3>Rating</h3> */}
       </div>
-      <div className="book-image"></div>
-      <div className="book-summary mt-5 container">
+      <img className="book-image" src={image}></img>
+      {/* <div className="book-summary mt-5 container">
         <p>
           In this ground-breaking book, Clears reveals exactly how these
           minuscule changes can grow into such life-altering outcomes. He
@@ -124,12 +148,20 @@ function Book() {
           distinguished scientists who have used the science of tiny habits to
           stay productive, motivated, and happy.
         </p>
-      </div>
+      </div> */}
       <div className="book-buttons">
-        <Button onClick={addToCurrentBooks} className="me-1">Reading</Button>
-        <Button onClick={removeFromCurrentBooks} className="me-1">Stop Reading</Button>
-        <Button onClick={addToFinishedBooks} className="me-1">Finished</Button>
-        <Button onClick={removeFromFinishedBooks} className="me-1">Didn't Finish</Button>
+        <Button onClick={addToCurrentBooks} className="me-1">
+          Reading
+        </Button>
+        <Button onClick={removeFromCurrentBooks} className="me-1">
+          Stop Reading
+        </Button>
+        <Button onClick={addToFinishedBooks} className="me-1">
+          Finished
+        </Button>
+        <Button onClick={removeFromFinishedBooks} className="me-1">
+          Didn't Finish
+        </Button>
         <Button onClick={addToWishlist} className="me-1">
           Wishlist
         </Button>
