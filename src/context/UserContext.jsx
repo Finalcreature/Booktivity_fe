@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const UserContext = createContext();
 
 export default function UserContextProvider({ children }) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -39,7 +39,9 @@ export default function UserContextProvider({ children }) {
   );
 
   useEffect(() => {
-    localStorage.setItem("token", token);
+    if (token) {
+      localStorage.setItem("token", JSON.stringify(token));
+    }
   }, [token]);
 
   const headersConfig = {
@@ -125,8 +127,7 @@ export default function UserContextProvider({ children }) {
         setSignupInfo,
         loading,
         setLoading,
-      }}
-    >
+      }}>
       {children}
     </UserContext.Provider>
   );
