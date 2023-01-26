@@ -92,6 +92,7 @@ export default function UserContextProvider({ children }) {
         });
         console.log(data);
         setCurrentUser(data.data.user);
+        setToken(data.data.token);
         // setLoading(false);
         toast.success("Log in successfull.");
         navigate("/");
