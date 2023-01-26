@@ -8,6 +8,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: #E8F5E9 ;
 }
 
 .nav-bar-link {
@@ -19,5 +20,28 @@ body {
 }
 
 .search-container {
-  width: 190px;
+  display: flex;
+}
+
+.search-btn{
+  background-color: #A5D6A7;
+  border: none;
+  margin-top: 1px;
+}
+
+.input-search-container {
+  width: 180px;
+}
+
+.book-card-container {
+  padding: 0px;
+}
+
+.book-card {
+  box-shadow: 1px 2px 9px #BDBDBD;
+}
+
+.book-card-btn {
+  background-color: #27AE60;
+  border: none;
 }
