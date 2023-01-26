@@ -23,7 +23,8 @@ function NavBar() {
     setLogOut(true);
     setCurrentUser("");
     localStorage.clear();
-    navigate("/");
+    navigate("/search");
+    localStorage.removeItem("token");
     window.location.reload();
   };
 
@@ -37,7 +38,7 @@ function NavBar() {
       <Navbar bg="light" expand="lg">
         <Container className="nav-bar-container">
           <Navbar.Brand href="/">Booktivity</Navbar.Brand>
-          <Form className="input-search-container" onSubmit={handleSearch}>
+          <Form className="input-search-container" onSubmit={handleSubmitSearch}>
             <div className="search-container">
               <Form.Control
                 type="search"
