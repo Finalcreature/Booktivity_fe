@@ -9,7 +9,7 @@ function SearchResult({ search }) {
           <BookCard
             id={book._id}
             key={book._id}
-            picture={book.picture}
+            picture={book.image}
             title={book.title}
             author={book.author}
             year={book.year}
