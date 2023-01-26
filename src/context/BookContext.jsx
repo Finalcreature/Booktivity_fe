@@ -15,29 +15,40 @@ export default function BookContextProvider({ children }) {
   const [rating, setRating] = useState("");
   const [isbn, setIsbn] = useState("");
 
-  const getResults = async () => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    const headersConfig = { Authorization: `Bearer ${token}` } ;
+  const token = JSON.parse(localStorage.getItem("token"));
+  const headersConfig = { Authorization: `Bearer ${token}` };
 
-    const res = await axios.get(
-      "http://localhost:8080/books",
-      {headers: headersConfig, params: {title: search}},
-    );
-    console.log(res)
+  const getResults = async () => {
+    const res = await axios.get("http://localhost:8080/books", {
+      headers: headersConfig,
+      params: { title: search },
+    });
+    console.log(res.data);
     setResult(res.data);
   };
 
   const getResultsAdvance = async () => {
+    const query = {
+      title: search,
+      author,
+      publisher: year,
+      rating,
+      isbn,
+    };
+
+    for (let property in query) {
+      if (query[property] === "") {
+        Object.defineProperty(query, property, { configurable: true });
+        delete query[property];
+      }
+    }
+
+    console.log(query);
     const res = await axios.get("http://localhost:8080/books", {
-      params: {
-        searchTerms: title,
-        author,
-        year,
-        rating,
-        isbn,
-      },
+      headers: headersConfig,
+      params: query,
     });
-    setResult(res.data.data);
+    setResult(res.data);
   };
 
   const handleSubmitAdvancedSearch = (event) => {
