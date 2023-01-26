@@ -18,7 +18,7 @@ function BookCard ({ id, picture, title, author, year, rating, isbn }) {
           {/* <p className="book-author">ISBN: {isbn}</p> */}
 
             <Button
-              onClick={() => navigate("/book")}
+              onClick={() => navigate(`/book?id=${id}`)}
               className="book-card-btn"
             >
               See more
