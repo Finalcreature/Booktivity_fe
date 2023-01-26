@@ -7,10 +7,11 @@ import { BookContext } from "../context/BookContext";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import lupa from "../images/lupa.png";
 
 function NavBar() {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { setSearch, search, getResults } = useContext(BookContext);
+  const { updateInputs, handleSearch } = useContext(BookContext);
 
   const navigate = useNavigate();
 
@@ -26,13 +27,8 @@ function NavBar() {
     window.location.reload();
   };
 
-  // const handleOnChangeSearchTerms = (event) => {
-  // };
-  
-  const handleSubmitSearch = async (event) => {
-    event.preventDefault();
-    setSearch(event.target.value);
-    await getResults();
+  const handleSubmitSearch = async (e) => {
+    await handleSearch(e);
     navigate("/search");
   };
 
@@ -41,19 +37,28 @@ function NavBar() {
       <Navbar bg="light" expand="lg">
         <Container className="nav-bar-container">
           <Navbar.Brand href="#home">Booktivity</Navbar.Brand>
-          <Form className="search-container" onSubmit={handleSubmitSearch}>
-                <Form.Control
-                  type="search"
-                  placeholder="Search by title"
-                  className="me-2 search-field"
-                  aria-label="Search"
-                  defaultValue={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                <Button type="submit">
-                  Search
+          <Form className="input-search-container" onSubmit={handleSearch}>
+            <div className="search-container">
+              <Form.Control
+                type="search"
+                name="title"
+                placeholder="Search by title"
+                className="me-2 search-field"
+                aria-label="Search"
+                defaultValue=""
+                onChange={updateInputs}
+              />
+              <Button
+                type="submit"
+                className="search-btn"
+                style={{ height: "37px", width: "60px" }}>
+                <img
+                  className="search-picture"
+                  src={lupa}
+                  style={{ height: "20px", color: "white" }}></img>
               </Button>
-              </Form>
+            </div>
+          </Form>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
@@ -74,8 +79,7 @@ function NavBar() {
                 <Nav.Link
                   className="nav-bar-link"
                   href=""
-                  onClick={handleLogOut}
-                >
+                  onClick={handleLogOut}>
                   Log out
                 </Nav.Link>
               )}
