@@ -12,7 +12,6 @@ import lupa from "../images/lupa.png";
 function NavBar() {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const { updateInputs, handleSearch } = useContext(BookContext);
-  const [defaultValue, setDefaultValue] = useState("");
 
   const navigate = useNavigate();
 
@@ -46,7 +45,7 @@ function NavBar() {
                 placeholder="Search by title"
                 className="me-2 search-field"
                 aria-label="Search"
-                defaultValue={defaultValue}
+                defaultValue=""
                 onChange={updateInputs}
               />
               <Button
