@@ -4,9 +4,10 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import SearchResult from "../components/SearchResults";
 import Accordion from "react-bootstrap/Accordion";
+import { Spinner } from "react-bootstrap";
 
 function Search() {
-  const { handleSearch, result, updateInputs } = useContext(BookContext);
+  const { handleSearch, result, updateInputs, inputs } = useContext(BookContext);
 
   return (
     <div className="search-page-container">
@@ -74,6 +75,9 @@ function Search() {
         </Accordion.Item>
       </Accordion>
 
+      {/* {result.length === 0 && inputs !== undefined ? (
+        <Spinner className="ms-5 ms-5 ms-5 mt-5 mt-5" animation="border" />
+      ) : null} */}
       <SearchResult search={result} />
     </div>
   );

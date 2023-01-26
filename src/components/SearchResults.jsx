@@ -1,7 +1,11 @@
 
+import { Spinner } from "react-bootstrap";
 import BookCard from "./BookCard";
 
 function SearchResult({ search }) {
+
+  // if (!search.length) return <Spinner className="ms-5 ms-5 ms-5 mt-5 mt-5" animation="border" />
+
   return (
     <div className="results-component">
       <div className="books-card-container">
