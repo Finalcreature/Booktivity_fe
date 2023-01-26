@@ -11,7 +11,7 @@ import lupa from "../images/lupa.png";
 
 function NavBar() {
   const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { setSearch, search, handleSearch } = useContext(BookContext);
+  const { updateInputs, handleSearch } = useContext(BookContext);
 
   const navigate = useNavigate();
 
@@ -37,17 +37,16 @@ function NavBar() {
       <Navbar bg="light" expand="lg">
         <Container className="nav-bar-container">
           <Navbar.Brand href="#home">Booktivity</Navbar.Brand>
-          <Form
-            className="input-search-container"
-            onSubmit={handleSubmitSearch}>
+          <Form className="input-search-container" onSubmit={handleSearch}>
             <div className="search-container">
               <Form.Control
                 type="search"
+                name="title"
                 placeholder="Search by title"
                 className="me-2 search-field"
                 aria-label="Search"
-                defaultValue={search}
-                onChange={(e) => setSearch(e.target.value)}
+                defaultValue=""
+                onChange={updateInputs}
               />
               <Button
                 type="submit"
