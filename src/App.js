@@ -13,6 +13,7 @@ import Search from "./pages/Search";
 import Home from "./pages/Home";
 import UserProfile from "./pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import Book from "./pages/Book";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
 
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<LogIn />} />
+            <Route path="/" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route
               path="/leaderboard"
@@ -34,8 +35,30 @@ function App() {
               }
             />
 
-            <Route path="/search" element={<Search />} />
-            <Route path="/profile" element={<UserProfile />} />
+            <Route
+              path="/search"
+              element={
+                <PrivateRoute>
+                  <Search />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <UserProfile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/book"
+              element={
+                <PrivateRoute>
+                  <Book />
+                </PrivateRoute>
+              }
+            />
           </Routes>
 
           <ToastContainer />
