@@ -8,6 +8,7 @@ export default function BookContextProvider({ children }) {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
 
+
   const [inputs, setInputs] = useState({});
   function updateInputs(e) {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -28,6 +29,7 @@ export default function BookContextProvider({ children }) {
       }
     }
     console.log(inputs)
+
     const res = await axios.get("http://localhost:8080/books", {
       headers: headersConfig,
       params: inputs,

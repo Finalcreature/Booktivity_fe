@@ -12,6 +12,7 @@ import NavBar from "./components/NavBar";
 import Search from "./pages/Search";
 import Home from "./pages/Home";
 import UserProfile from "./pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -19,19 +20,24 @@ function App() {
       <BookContextProvider>
         <div className="App">
           <NavBar />
-          
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<LogIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/leaderboard" element={ <Leaderboard />} />
+            <Route
+              path="/leaderboard"
+              element={
+                <PrivateRoute>
+                  <Leaderboard />
+                </PrivateRoute>
+              }
+            />
 
             <Route path="/search" element={<Search />} />
             <Route path="/profile" element={<UserProfile />} />
           </Routes>
 
-          
-         
           <ToastContainer />
         </div>
       </BookContextProvider>
