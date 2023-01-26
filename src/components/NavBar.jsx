@@ -36,7 +36,7 @@ function NavBar() {
     <div>
       <Navbar bg="light" expand="lg">
         <Container className="nav-bar-container">
-          <Navbar.Brand href="#home">Booktivity</Navbar.Brand>
+          <Navbar.Brand href="/">Booktivity</Navbar.Brand>
           <Form className="input-search-container" onSubmit={handleSearch}>
             <div className="search-container">
               <Form.Control
