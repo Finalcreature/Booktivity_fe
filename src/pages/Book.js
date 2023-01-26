@@ -4,8 +4,12 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 function Book() {
+  const location = useLocation();
+  const currentId = location.search.slice(4);
+
   const { currentUser } = useContext(UserContext);
   const [thisBook, setThisBook] = useState({});
 
