@@ -172,7 +172,6 @@ function Book() {
         <Button onClick={removeFromWishlist} className="me-1">
           Unsave
         </Button>
-        <Button>Buy</Button>
       </div>
     </div>
   );
