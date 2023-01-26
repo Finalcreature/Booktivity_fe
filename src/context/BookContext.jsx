@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
 
 export const BookContext = createContext();
 
@@ -18,16 +17,10 @@ export default function BookContextProvider({ children }) {
   const token = JSON.parse(localStorage.getItem("token"));
   const headersConfig = { Authorization: `Bearer ${token}` };
 
-  const getResults = async () => {
-    const res = await axios.get("http://localhost:8080/books", {
-      headers: headersConfig,
-      params: { title: search },
-    });
-    console.log(res.data);
-    setResult(res.data);
-  };
-
-  const getResultsAdvance = async () => {
+  const handleSearch = async (e) => {
+    if (e) {
+      e.preventDefault();
+    }
     const query = {
       title: search,
       author,
@@ -44,16 +37,12 @@ export default function BookContextProvider({ children }) {
     }
 
     console.log(query);
+
     const res = await axios.get("http://localhost:8080/books", {
       headers: headersConfig,
       params: query,
     });
     setResult(res.data);
-  };
-
-  const handleSubmitAdvancedSearch = (event) => {
-    event.preventDefault();
-    getResultsAdvance();
   };
 
   return (
@@ -63,9 +52,7 @@ export default function BookContextProvider({ children }) {
         setSearch,
         result,
         setResult,
-        getResults,
-        getResultsAdvance,
-        handleSubmitAdvancedSearch,
+        handleSearch,
         setTitle,
         setAuthor,
         setYear,
@@ -76,8 +63,7 @@ export default function BookContextProvider({ children }) {
         year,
         rating,
         isbn,
-      }}
-    >
+      }}>
       {children}
     </BookContext.Provider>
   );

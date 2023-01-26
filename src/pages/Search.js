@@ -8,8 +8,7 @@ import Accordion from "react-bootstrap/Accordion";
 function Search() {
   const {
     search,
-    getResults,
-    getResultsAdvance,
+    handleSearch,
     result,
     setTitle,
     setAuthor,
@@ -27,11 +26,6 @@ function Search() {
   //   getResults();
   // }, [search]);
 
-  const handleSubmitAdvancedSearch = (event) => {
-    event.preventDefault();
-    getResultsAdvance();
-  };
-
   return (
     <div className="search-page-container">
       <h1 className="search-title">Search result</h1>
@@ -42,7 +36,7 @@ function Search() {
           <Accordion.Body>
             <Form
               className="advanced-search-form"
-              onSubmit={handleSubmitAdvancedSearch}
+              onSubmit={handleSearch}
             >
               <Form.Group
                 className="mb-3 search-input"
