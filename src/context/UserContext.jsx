@@ -33,7 +33,9 @@ export default function UserContextProvider({ children }) {
     wishlist: "",
   });
 
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(
+    JSON.parse(localStorage.getItem("token")) || null
+  );
 
   useEffect(() => {
     localStorage.setItem("token", token);
@@ -66,7 +68,7 @@ export default function UserContextProvider({ children }) {
           repassword: "",
         });
         toast.success("Sign up successfull, please log in.");
-        navigate("/login")
+        navigate("/login");
       }
     } catch (err) {
       console.log(err);

@@ -17,13 +17,13 @@ export default function BookContextProvider({ children }) {
 
   const getResults = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
-    const headersConfig = { Authorization: `Bearer ${token}` } ;
+    const headersConfig = { Authorization: `Bearer ${token}` };
 
     const res = await axios.get(
-      "http://localhost:8080/books",
-      {headers: headersConfig, params: {title: search}},
+      "https://booktivity-r59ue7lvr-finalcreature.vercel.app/books",
+      { headers: headersConfig, params: { title: search } }
     );
-    console.log(res)
+    console.log(res);
     setResult(res.data);
   };
 
