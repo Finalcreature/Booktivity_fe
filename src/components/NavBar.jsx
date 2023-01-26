@@ -28,13 +28,6 @@ function NavBar() {
     window.location.reload();
   };
 
-  const handleSubmitSearch = async (e) => {
-    await handleSearch(e);
-    navigate("/search");
-  };
-
-  console.log(token);
-
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -68,7 +61,7 @@ function NavBar() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link hidden={!token} className="nav-bar-link" href="/">
-                Home
+                Recommendations
               </Nav.Link>
               <Nav.Link
                 hidden={!token}
@@ -86,6 +79,9 @@ function NavBar() {
               </Nav.Link>
               <Nav.Link hidden={!token} className="nav-bar-link" href="/search">
                 Advanced search
+              </Nav.Link>
+              <Nav.Link hidden={true} className="nav-bar-link" href="/profile">
+                Profile
               </Nav.Link>
 
               {isLoggedin && (
