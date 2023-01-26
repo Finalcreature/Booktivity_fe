@@ -101,11 +101,14 @@ export default function UserContextProvider({ children }) {
         setToken(data.data.token);
         // setLoading(false);
 
-
         toast.success("Log in successfull.");
         window.location.reload();
         if (typeof window !== "undefined") {
           localStorage.setItem("token", JSON.stringify(data.data.token));
+          localStorage.setItem(
+            "currentUser",
+            JSON.stringify(data.data.user._id)
+          );
         }
       }
     } catch (err) {
@@ -130,7 +133,8 @@ export default function UserContextProvider({ children }) {
         setSignupInfo,
         loading,
         setLoading,
-      }}>
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
