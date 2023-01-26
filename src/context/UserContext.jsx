@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const UserContext = createContext();
 
 export default function UserContextProvider({ children }) {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -38,7 +39,9 @@ export default function UserContextProvider({ children }) {
   );
 
   useEffect(() => {
-    localStorage.setItem("token", token);
+    if (token) {
+      localStorage.setItem("token", JSON.stringify(token));
+    }
   }, [token]);
 
   const headersConfig = {
@@ -47,6 +50,7 @@ export default function UserContextProvider({ children }) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const signUser = await axios.post("http://localhost:8080/user/signup", {
         username,
@@ -67,6 +71,7 @@ export default function UserContextProvider({ children }) {
           password: "",
           repassword: "",
         });
+        setLoading(false);
         toast.success("Sign up successfull, please log in.");
         navigate("/login");
       }
@@ -78,7 +83,7 @@ export default function UserContextProvider({ children }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     try {
       const data = await axios.post(
         "http://localhost:8080/user/login",
@@ -92,11 +97,13 @@ export default function UserContextProvider({ children }) {
         });
         console.log(data);
         setCurrentUser(data.data.user);
+
         setToken(data.data.token);
         // setLoading(false);
-        toast.success("Log in successfull.");
-        navigate("/");
 
+
+        toast.success("Log in successfull.");
+        window.location.reload();
         if (typeof window !== "undefined") {
           localStorage.setItem("token", JSON.stringify(data.data.token));
         }
@@ -121,8 +128,9 @@ export default function UserContextProvider({ children }) {
         setLoginInfo,
         signupInfo,
         setSignupInfo,
-      }}
-    >
+        loading,
+        setLoading,
+      }}>
       {children}
     </UserContext.Provider>
   );

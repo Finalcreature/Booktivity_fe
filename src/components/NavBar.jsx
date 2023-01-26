@@ -23,7 +23,8 @@ function NavBar() {
     setLogOut(true);
     setCurrentUser("");
     localStorage.clear();
-    navigate("/");
+    navigate("/search");
+    localStorage.removeItem("token");
     window.location.reload();
   };
 
