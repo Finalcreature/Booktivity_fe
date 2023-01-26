@@ -8,35 +8,62 @@ import { toast } from "react-toastify";
 import BookCard from "./BookCard";
 
 export const MyBooks = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const headersConfig = { Authorization: `Bearer ${token}` };
   const { currentUser } = useContext(UserContext);
-  const [chosenList, setChosenList] = useState("currently")
+  const [chosenList, setChosenList] = useState("currently");
   const [myBooks, setMyBooks] = useState([]);
 
-  const handleChosenList = (e) => {
-    setChosenList({ [e.target.id]: e.target.value });
+  // const handleChosenList = (e) => {
+  //   setChosenList({ [e.target.id]: e.target.value });
+  // };
+
+  const handleChosenList = (value) => {
+    setChosenList({ chosenList: value });
   };
 
-  const showMyBooks = async () => {
-    if (chosenList === "currently") {
-     try {
+  const getWishlist = async () => {
+    try {
       const data = await axios.get(
-        `http://localhost:8080/user/${currentUser.userId}/currently`
+        `http://localhost:8080/user/${currentUser.userId}/wishlist`,
+        { headers: headersConfig }
       );
-      if (data) {
+      if (data.status === 200) {
         console.log(data);
-        setMyBooks(data)
+        setMyBooks(data.data.wishlist);
+        console.log(myBooks);
       }
+      console.log(myBooks);
     } catch (err) {
       console.log(err);
       toast.error(err);
-    } } else if (chosenList === "finsished") {
+    }
+  }
+
+  const showMyBooks = async () => {
+    if (chosenList === "currently") {
       try {
         const data = await axios.get(
-          `http://localhost:8080/user/${currentUser.userId}/finished` 
+          `http://localhost:8080/user/${currentUser.userId}/currently`,
+          { headers: headersConfig }
         );
         if (data) {
           console.log(data);
-          setMyBooks(data)
+          setMyBooks(data);
+        }
+      } catch (err) {
+        console.log(err);
+        toast.error(err);
+      }
+    } else if (chosenList === "finsished") {
+      try {
+        const data = await axios.get(
+          `http://localhost:8080/user/${currentUser.userId}/finished`,
+          { headers: headersConfig }
+        );
+        if (data) {
+          console.log(data);
+          setMyBooks(data);
         }
       } catch (err) {
         console.log(err);
@@ -45,23 +72,26 @@ export const MyBooks = () => {
     } else if (chosenList === "wishlist") {
       try {
         const data = await axios.get(
-          `http://localhost:8080/user/${currentUser.userId}/wishlist`  
+          `http://localhost:8080/user/${currentUser.userId}/wishlist`,
+          { headers: headersConfig }
         );
-        if (data) {
+        if (data.status === 200) {
           console.log(data);
-          setMyBooks(data)
+          setMyBooks(data.data.wishlist);
+          console.log(myBooks);
         }
       } catch (err) {
         console.log(err);
         toast.error(err);
       }
-    }}
-    
+    }
+  };
 
-const handleChange = () => {
-  handleChosenList();
-  showMyBooks();
-}
+  const handleChange = () => {
+    // handleChosenList();
+      getWishlist();
+    // showMyBooks();
+  };
 
   return (
     <div>
@@ -79,21 +109,21 @@ const handleChange = () => {
         </Form.Select>
       </Form>
       <div className="results-component">
-      <div className="books-card-container">
-        {myBooks.map((book) => (
-          <BookCard
-            id={book._id}
-            key={book._id}
-            picture={book.image}
-            title={book.title}
-            author={book.author}
-            year={book.year}
-            rating={book.rating}
-            isbn={book.isbn}
-          />
-        ))}
+        <div className="books-card-container">
+          {myBooks.map((book) => (
+            <BookCard
+              id={book._id}
+              key={book._id}
+              picture={book.image}
+              title={book.title}
+              author={book.author}
+              year={book.year}
+              rating={book.rating}
+              isbn={book.isbn}
+            />
+          ))}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
