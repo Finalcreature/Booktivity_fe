@@ -97,7 +97,11 @@ export default function UserContextProvider({ children }) {
         });
         console.log(data);
         setCurrentUser(data.data.user);
-        setLoading(false);
+
+        setToken(data.data.token);
+        // setLoading(false);
+
+
         toast.success("Log in successfull.");
         window.location.reload();
         if (typeof window !== "undefined") {
