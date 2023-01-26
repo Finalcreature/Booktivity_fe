@@ -7,9 +7,9 @@ function Home() {
   const { token } = useContext(UserContext);
   return (
     <>
-      <div>We are at home page</div>;{/* <Book /> */}
-      {!token && <LogIn />}
-      {/* <MyBooks /> */}
+      <div>We are at home page</div>
+      {/* <Book /> */}
+      {!token ? <LogIn /> : <MyBooks />}
     </>
   );
 }
