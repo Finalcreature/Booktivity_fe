@@ -2,8 +2,9 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 function UserProfile() {
-
   const { currentUser } = useContext(UserContext);
+
+  console.log(currentUser);
 
   return (
     currentUser && (
@@ -23,11 +24,15 @@ function UserProfile() {
         </div>
 
         <div className="profile-books-container">
-          <h3 className="profile-books">{currentUser.finished} books finished</h3>
+          <h3 className="profile-books">
+            {currentUser.finished} books finished
+          </h3>
           <h3 className="profile-books">
             {currentUser.currently} currently reading
           </h3>
-          <h3 className="profile-books">{currentUser.wishlist} in your wishlist</h3>
+          <h3 className="profile-books">
+            {currentUser.wishlist} in your wishlist
+          </h3>
         </div>
       </div>
     )
