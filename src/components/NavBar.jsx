@@ -51,11 +51,13 @@ function NavBar() {
               <Button
                 type="submit"
                 className="search-btn"
-                style={{ height: "37px", width: "60px" }}>
+                style={{ height: "37px", width: "60px" }}
+              >
                 <img
                   className="search-picture"
                   src={lupa}
-                  style={{ height: "20px", color: "white" }}></img>
+                  style={{ height: "20px", color: "white" }}
+                ></img>
               </Button>
             </div>
           </Form>
@@ -79,7 +81,8 @@ function NavBar() {
                 <Nav.Link
                   className="nav-bar-link"
                   href=""
-                  onClick={handleLogOut}>
+                  onClick={handleLogOut}
+                >
                   Log out
                 </Nav.Link>
               )}
