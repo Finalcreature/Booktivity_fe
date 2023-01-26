@@ -2,10 +2,12 @@ import { createContext } from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export const UserContext = createContext();
 
 export default function UserContextProvider({ children }) {
+  const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: "",
@@ -64,6 +66,7 @@ export default function UserContextProvider({ children }) {
           repassword: "",
         });
         toast.success("Sign up successfull, please log in.");
+        navigate("/login")
       }
     } catch (err) {
       console.log(err);
@@ -87,11 +90,9 @@ export default function UserContextProvider({ children }) {
         });
         console.log(data);
         setCurrentUser(data.data.user);
-        // setUserRole(data.userRole)
-        // setLoggedIn(true);
         // setLoading(false);
         toast.success("Log in successfull.");
-        // navigate("/");
+        navigate("/");
 
         if (typeof window !== "undefined") {
           localStorage.setItem("token", JSON.stringify(data.data.token));
@@ -99,7 +100,7 @@ export default function UserContextProvider({ children }) {
       }
     } catch (err) {
       console.log(err);
-      toast.error(err.response.data);
+      toast.error(err);
     }
   };
 

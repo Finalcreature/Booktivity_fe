@@ -81,7 +81,7 @@ function LogIn() {
         <Button variant="primary" type="submit">
           Login
         </Button>
-        <a className="signup-link ms-2">First time? Create an account.</a>
+        <a href="/signup" className="signup-link ms-2">First time? Create an account.</a>
       </Form>
     </div>
   );

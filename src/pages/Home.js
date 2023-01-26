@@ -5,7 +5,7 @@ function Home() {
   return (
     <>
       {/* <div>We are at home page</div>; */}
-      <Book />
+      {/* <Book /> */}
       <MyBooks />
     </>
   );
