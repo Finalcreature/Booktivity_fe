@@ -49,7 +49,7 @@ function Book() {
     try {
       const data = await axios.delete(
         `http://localhost:8080/user/${currentUser}/wishlist`,
-        thisBook._id
+        { headers: headersConfig, body: currentId }
       );
       if (data) {
         console.log(data);
@@ -81,8 +81,8 @@ function Book() {
   const removeFromCurrentBooks = async () => {
     try {
       const data = await axios.delete(
-        `http://localhost:8080/user/${currentUser.userId}/currently`,
-        thisBook._id
+        `http://localhost:8080/user/${currentUser}/currently`,
+        { headers: headersConfig, body: currentId }
       );
       if (data) {
         console.log(data);
@@ -114,8 +114,8 @@ function Book() {
   const removeFromFinishedBooks = async () => {
     try {
       const data = await axios.delete(
-        `http://localhost:8080/user/${currentUser.userId}/finished`,
-        thisBook._id
+        `http://localhost:8080/user/${currentUser}/finished`,
+        { headers: headersConfig, body: currentId }
       );
       if (data) {
         console.log(data);
