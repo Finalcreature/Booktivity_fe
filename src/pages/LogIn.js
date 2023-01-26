@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import MySpinner from "../components/MySpinner";
 
 function LogIn() {
   const { handleLogin, loginInfo, setLoginInfo } = useContext(UserContext);
@@ -83,6 +84,7 @@ function LogIn() {
         </Button>
         <a href="/signup" className="signup-link ms-2">First time? Create an account.</a>
       </Form>
+      <MySpinner />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const UserContext = createContext();
 
 export default function UserContextProvider({ children }) {
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -47,6 +48,7 @@ export default function UserContextProvider({ children }) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const signUser = await axios.post("http://localhost:8080/user/signup", {
         username,
@@ -67,6 +69,7 @@ export default function UserContextProvider({ children }) {
           password: "",
           repassword: "",
         });
+        setLoading(false);
         toast.success("Sign up successfull, please log in.");
         navigate("/login");
       }
@@ -78,7 +81,7 @@ export default function UserContextProvider({ children }) {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    // setLoading(true);
+    setLoading(true);
     try {
       const data = await axios.post(
         "http://localhost:8080/user/login",
@@ -92,7 +95,7 @@ export default function UserContextProvider({ children }) {
         });
         console.log(data);
         setCurrentUser(data.data.user);
-        // setLoading(false);
+        setLoading(false);
         toast.success("Log in successfull.");
         navigate("/");
 
@@ -120,6 +123,8 @@ export default function UserContextProvider({ children }) {
         setLoginInfo,
         signupInfo,
         setSignupInfo,
+        loading,
+        setLoading,
       }}
     >
       {children}
