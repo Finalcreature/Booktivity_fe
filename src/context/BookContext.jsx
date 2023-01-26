@@ -8,11 +8,10 @@ export default function BookContextProvider({ children }) {
   const [search, setSearch] = useState("");
   const [result, setResult] = useState([]);
 
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [year, setYear] = useState("");
-  const [rating, setRating] = useState("");
-  const [isbn, setIsbn] = useState("");
+  const [inputs, setInputs] = useState({});
+  function updateInputs(e) {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  }
 
   const token = JSON.parse(localStorage.getItem("token"));
   const headersConfig = { Authorization: `Bearer ${token}` };
@@ -21,26 +20,17 @@ export default function BookContextProvider({ children }) {
     if (e) {
       e.preventDefault();
     }
-    const query = {
-      title: search,
-      author,
-      publisher: year,
-      rating,
-      isbn,
-    };
 
-    for (let property in query) {
-      if (query[property] === "") {
-        Object.defineProperty(query, property, { configurable: true });
-        delete query[property];
+    for (let property in inputs) {
+      if (inputs[property] === "") {
+        Object.defineProperty(inputs, property, { configurable: true });
+        delete inputs[property];
       }
     }
-
-    console.log(query);
-
+    console.log(inputs)
     const res = await axios.get("http://localhost:8080/books", {
       headers: headersConfig,
-      params: query,
+      params: inputs,
     });
     setResult(res.data);
   };
@@ -53,16 +43,7 @@ export default function BookContextProvider({ children }) {
         result,
         setResult,
         handleSearch,
-        setTitle,
-        setAuthor,
-        setYear,
-        setRating,
-        setIsbn,
-        title,
-        author,
-        year,
-        rating,
-        isbn,
+        updateInputs,
       }}>
       {children}
     </BookContext.Provider>
