@@ -10,7 +10,7 @@ import Form from "react-bootstrap/Form";
 import lupa from "../images/lupa.png";
 
 function NavBar() {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser, token } = useContext(UserContext);
   const { updateInputs, handleSearch } = useContext(BookContext);
 
   const navigate = useNavigate();
@@ -32,13 +32,15 @@ function NavBar() {
     navigate("/search");
   };
 
+  console.log(token);
+
   return (
     <div>
       <Navbar bg="light" expand="lg">
         <Container className="nav-bar-container">
           <Navbar.Brand href="/">Booktivity</Navbar.Brand>
           <Form className="input-search-container" onSubmit={handleSearch}>
-            <div className="search-container">
+            <div hidden={!token} className="search-container">
               <Form.Control
                 type="search"
                 name="title"
@@ -64,21 +66,30 @@ function NavBar() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link className="nav-bar-link" href="/">
+              <Nav.Link hidden={!token} className="nav-bar-link" href="/">
                 Home
               </Nav.Link>
-              <Nav.Link className="nav-bar-link" href="/myBooks">
+              <Nav.Link
+                hidden={!token}
+                className="nav-bar-link"
+                href="/myBooks"
+              >
                 My books
               </Nav.Link>
-              <Nav.Link className="nav-bar-link" href="/leaderboard">
+              <Nav.Link
+                hidden={!token}
+                className="nav-bar-link"
+                href="/leaderboard"
+              >
                 Leaderboard
               </Nav.Link>
-              <Nav.Link className="nav-bar-link" href="/search">
+              <Nav.Link hidden={!token} className="nav-bar-link" href="/search">
                 Advanced search
               </Nav.Link>
 
               {isLoggedin && (
                 <Nav.Link
+                  hidden={!token}
                   className="nav-bar-link"
                   href=""
                   onClick={handleLogOut}
