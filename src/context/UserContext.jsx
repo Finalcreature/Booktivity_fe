@@ -99,8 +99,7 @@ export default function UserContextProvider({ children }) {
         setCurrentUser(data.data.user);
         setLoading(false);
         toast.success("Log in successfull.");
-        navigate("/");
-
+        window.location.reload();
         if (typeof window !== "undefined") {
           localStorage.setItem("token", JSON.stringify(data.data.token));
         }
